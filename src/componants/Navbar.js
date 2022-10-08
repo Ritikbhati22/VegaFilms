@@ -1,23 +1,31 @@
-import React from "react";
-import SearchIcon from "@material-ui/icons/Search";
 import { useEffect, useState } from "react";
+import React from "react";
 
-export default function Navbar() {
-  const [apiData, setApiData] = useState({})
-  const apiKey = '537a4a8b666eff5ba82510cb7241c3da'
-  const fetchApiReq = async () => {
-    const apifetch = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US`)
-    const makichut = await apifetch.json()
-    setApiData(makichut)
-  }
-  useEffect(() => {
-    fetchApiReq()
-  }, [])
-  if (apiData) {
-    console.log(apiData)
-  }
-  return (
-    <div>
+export default function Navbar(data) {
+ 
+  let API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=537a4a8b666eff5ba82510cb7241c3da";
+
+    const fetchApiData =  async (url) => {
+try {
+const res = await fetch(url);
+const data = await res.json();
+console.log(data);
+Setresponse(data.results)
+
+
+} catch (error) {
+  
+    console.log(error)
+}
+    }
+    useEffect(() => {
+ 
+        fetchApiData(API);
+    }, [])
+
+const [response,Setresponse] = useState([]);
+    return (
+      <div>
       <div className=" bg-slate-700 pl-6 text-4xl pt-5 font-serif pb-5">
         <h1 className="text-red-600">
           Vega<span className="text-white">Films</span>
